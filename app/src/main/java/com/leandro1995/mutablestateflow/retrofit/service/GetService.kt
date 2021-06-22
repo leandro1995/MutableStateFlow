@@ -12,19 +12,18 @@ class GetService {
 
         suspend fun postList(
             response: (postList: MutableList<Post>) -> Unit,
-            errorResponse: (code: Int, message: String) -> Unit
+            errorResponse: (code: Int, errorMessage: String) -> Unit
         ) {
-
             try {
                 RetrofitConfig.getApiService.postList().let {
                     if (it.isSuccessful) {
                         response(GetConvert.postList(jsonArray = it.body()!!))
                     } else {
-                        errorResponse(it.code(), "")
+                        errorResponse(it.code(), Setting.ERROR_MESSAGE)
                     }
                 }
             } catch (ex: TimeoutException) {
-                errorResponse(Setting.TIME_OUT, "")
+                errorResponse(Setting.TIME_OUT, Setting.TIME_OUT_MESSAGE)
             }
         }
     }

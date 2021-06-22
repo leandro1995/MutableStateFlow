@@ -1,6 +1,5 @@
 package com.leandro1995.mutablestateflow.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.leandro1995.mutablestateflow.model.design.PostListLoading
 import com.leandro1995.mutablestateflow.model.entity.User
@@ -21,7 +20,7 @@ class MainViewModel : ViewModel() {
     val onclick = fun(action: Int) {
         when (action) {
             LOAD_LIST -> {
-                postLoadingFlow.value = PostListLoading(progress = true)
+                postLoadingFlow.value = PostListLoading(isProgress = true)
             }
         }
     }
@@ -29,13 +28,13 @@ class MainViewModel : ViewModel() {
     suspend fun postList() {
         user.postList(
             ({ postList ->
-                Log.e("LISTA", "${postList.size}")
+                postLoadingFlow.value =
+                    PostListLoading(isProgress = false, isComplete = true, postList = postList)
             }),
-            ({ code, message ->
-                Log.e("MENSAJE", "$code $message")
+            ({ code, errorMessage ->
+                postLoadingFlow.value =
+                    PostListLoading(isProgress = false, code = code, errorMessage = errorMessage)
             })
         )
-
-        postLoadingFlow.value = PostListLoading(progress = false)
     }
 }

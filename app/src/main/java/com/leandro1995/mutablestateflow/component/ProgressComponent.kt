@@ -2,6 +2,7 @@ package com.leandro1995.mutablestateflow.component
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -42,16 +43,31 @@ class ProgressComponent : ConstraintLayout {
         }
     }
 
-    fun loading(isProgress: Boolean, method: suspend () -> Unit) {
+    fun loading(
+        isProgress: Boolean,
+        isComplete: Boolean,
+        code: Int,
+        errorMessage: String,
+        method: suspend () -> Unit,
+        response: () -> Unit
+    ) {
         if (isProgress) {
             progressBar.visibility = View.VISIBLE
 
             MainScope().launch(Dispatchers.Main) {
-                delay(TimeUnit.SECONDS.toMillis(2))
+                delay(TimeUnit.SECONDS.toMillis(1))
                 method()
             }
         } else {
             progressBar.visibility = View.GONE
+
+            if (isComplete) {
+                response()
+            } else {
+                if (code != -1) {
+                    Log.e("MENSAJE", "$errorMessage")
+                }
+            }
         }
     }
 }

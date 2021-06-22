@@ -12,8 +12,8 @@ class User {
             ({ postList ->
                 response(postList)
             }),
-            ({ code, message ->
-                errorResponse(code, message)
+            ({ code, errorMessage ->
+                errorResponse(code, errorMessage)
             })
         )
     }

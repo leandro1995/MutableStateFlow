@@ -2,6 +2,7 @@ package com.leandro1995.mutablestateflow
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.leandro1995.mutablestateflow.databinding.ActivityMainBinding
@@ -28,7 +29,18 @@ class MainActivity : AppCompatActivity() {
             mainViewModel.apply {
 
                 postLoadingFlow.collect {
-                    activityMainBinding.progressComponent.loading(it.progress) { postList() }
+                    activityMainBinding.progressComponent.loading(
+                        isProgress = it.isProgress,
+                        isComplete = it.isComplete,
+                        method = ({
+                            postList()
+                        }),
+                        response = ({
+                            Log.e("LISTA", "${it.postList.size}")
+                        }),
+                        code = it.code,
+                        errorMessage = it.errorMessage
+                    )
                 }
             }
         }
