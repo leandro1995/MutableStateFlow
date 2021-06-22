@@ -1,5 +1,6 @@
 package com.leandro1995.mutablestateflow.component
 
+import android.app.Activity
 import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
@@ -7,6 +8,7 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.leandro1995.mutablestateflow.R
+import com.leandro1995.mutablestateflow.util.DialogUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -65,7 +67,7 @@ class ProgressComponent : ConstraintLayout {
                 response()
             } else {
                 if (code != -1) {
-                    Log.e("MENSAJE", "$errorMessage")
+                    DialogUtil.warningDialog(activity = (context as Activity), errorMessage)
                 }
             }
         }
