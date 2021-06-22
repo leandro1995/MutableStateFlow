@@ -2,7 +2,6 @@ package com.leandro1995.mutablestateflow
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.leandro1995.mutablestateflow.databinding.ActivityMainBinding
@@ -28,8 +27,8 @@ class MainActivity : AppCompatActivity() {
 
             mainViewModel.apply {
 
-                userLoadingFlow.collect {
-                    Log.e("TOTAL", "${it.progress}")
+                postLoadingFlow.collect {
+                    activityMainBinding.progressComponent.loading(it.progress) { postList() }
                 }
             }
         }

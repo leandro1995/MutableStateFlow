@@ -1,8 +1,9 @@
 package com.leandro1995.mutablestateflow.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.leandro1995.mutablestateflow.model.entity.User
 import com.leandro1995.mutablestateflow.model.design.PostListLoading
+import com.leandro1995.mutablestateflow.model.entity.User
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class MainViewModel : ViewModel() {
@@ -11,18 +12,16 @@ class MainViewModel : ViewModel() {
         const val LOAD_LIST = 1
     }
 
-    val userLoadingFlow: MutableStateFlow<PostListLoading> by lazy {
+    val postLoadingFlow: MutableStateFlow<PostListLoading> by lazy {
         MutableStateFlow(PostListLoading())
     }
 
-    private val userLoading = PostListLoading()
     private val user = User()
 
     val onclick = fun(action: Int) {
         when (action) {
             LOAD_LIST -> {
-                userLoading.progress = true
-                userLoadingFlow.value = userLoading
+                postLoadingFlow.value = PostListLoading(progress = true)
             }
         }
     }
@@ -30,11 +29,13 @@ class MainViewModel : ViewModel() {
     suspend fun postList() {
         user.postList(
             ({ postList ->
-                
+                Log.e("LISTA", "${postList.size}")
             }),
             ({ code, message ->
-
+                Log.e("MENSAJE", "$code $message")
             })
         )
+
+        postLoadingFlow.value = PostListLoading(progress = false)
     }
 }
