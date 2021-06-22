@@ -3,6 +3,7 @@ package com.leandro1995.mutablestateflow.retrofit.service
 import com.leandro1995.mutablestateflow.model.Post
 import com.leandro1995.mutablestateflow.retrofit.config.RetrofitConfig
 import com.leandro1995.mutablestateflow.retrofit.config.Setting
+import com.leandro1995.mutablestateflow.retrofit.convert.GetConvert
 import java.util.concurrent.TimeoutException
 
 class GetService {
@@ -17,7 +18,7 @@ class GetService {
             try {
                 RetrofitConfig.getApiService.postList().let {
                     if (it.isSuccessful) {
-                        response(mutableListOf())
+                        response(GetConvert.postList(jsonArray = it.body()!!))
                     } else {
                         errorResponse(it.code(), "")
                     }
