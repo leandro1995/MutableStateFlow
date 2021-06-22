@@ -1,6 +1,6 @@
 package com.leandro1995.mutablestateflow.retrofit.service
 
-import com.leandro1995.mutablestateflow.model.Post
+import com.leandro1995.mutablestateflow.model.entity.Post
 import com.leandro1995.mutablestateflow.retrofit.config.RetrofitConfig
 import com.leandro1995.mutablestateflow.retrofit.config.Setting
 import com.leandro1995.mutablestateflow.retrofit.convert.GetConvert

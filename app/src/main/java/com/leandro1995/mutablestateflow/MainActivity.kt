@@ -2,10 +2,14 @@ package com.leandro1995.mutablestateflow
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.leandro1995.mutablestateflow.databinding.ActivityMainBinding
 import com.leandro1995.mutablestateflow.viewmodel.MainViewModel
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,5 +23,15 @@ class MainActivity : AppCompatActivity() {
 
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         activityMainBinding.mainViewModel = mainViewModel
+
+        MainScope().launch {
+
+            mainViewModel.apply {
+
+                userLoadingFlow.collect {
+                    Log.e("TOTAL", "${it.progress}")
+                }
+            }
+        }
     }
 }

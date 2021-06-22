@@ -1,7 +1,7 @@
 package com.leandro1995.mutablestateflow.retrofit.convert
 
 import com.google.gson.JsonArray
-import com.leandro1995.mutablestateflow.model.Post
+import com.leandro1995.mutablestateflow.model.entity.Post
 import com.leandro1995.mutablestateflow.retrofit.config.Setting
 import com.leandro1995.mutablestateflow.retrofit.util.UtilRetrofit
 

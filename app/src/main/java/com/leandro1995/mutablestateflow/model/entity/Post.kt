@@ -1,4 +1,4 @@
-package com.leandro1995.mutablestateflow.model
+package com.leandro1995.mutablestateflow.model.entity
 
 class Post constructor(
     var userId: Int = -1,

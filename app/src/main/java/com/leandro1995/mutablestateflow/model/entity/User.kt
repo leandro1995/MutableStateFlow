@@ -1,4 +1,4 @@
-package com.leandro1995.mutablestateflow.model
+package com.leandro1995.mutablestateflow.model.entity
 
 import com.leandro1995.mutablestateflow.retrofit.service.GetService
 
