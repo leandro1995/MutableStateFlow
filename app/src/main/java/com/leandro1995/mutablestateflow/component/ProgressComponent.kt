@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.leandro1995.mutablestateflow.R
+import com.leandro1995.mutablestateflow.config.Setting
 import com.leandro1995.mutablestateflow.util.DialogUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
@@ -16,6 +17,10 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 
 class ProgressComponent : ConstraintLayout {
+
+    companion object {
+        private const val NOT_FOUND = 404
+    }
 
     private lateinit var view: View
 
@@ -35,14 +40,6 @@ class ProgressComponent : ConstraintLayout {
         defStyleAttr
     ) {
         init(context = context)
-    }
-
-    private fun init(context: Context) {
-        view = inflate(context, R.layout.progress_component, this)
-
-        view.apply {
-            progressBar = findViewById(R.id.progressBar)
-        }
     }
 
     fun loading(
@@ -66,9 +63,23 @@ class ProgressComponent : ConstraintLayout {
             if (isComplete) {
                 response()
             } else {
-                if (code != -1) {
-                    DialogUtil.warningDialog(activity = (context as Activity), errorMessage)
-                }
+                message(code = code, errorMessage = errorMessage)
+            }
+        }
+    }
+
+    private fun init(context: Context) {
+        view = inflate(context, R.layout.progress_component, this)
+
+        view.apply {
+            progressBar = findViewById(R.id.progressBar)
+        }
+    }
+
+    private fun message(code: Int, errorMessage: String) {
+        when (code) {
+            Setting.MESSAGE_WARNING, NOT_FOUND -> {
+                DialogUtil.warningDialog(activity = (context as Activity), errorMessage)
             }
         }
     }
