@@ -5,7 +5,7 @@ import android.app.AlertDialog
 import android.widget.Button
 import android.widget.TextView
 import com.leandro1995.mutablestateflow.R
-import com.leandro1995.mutablestateflow.callback.WarningCallBack
+import com.leandro1995.mutablestateflow.config.callback.WarningCallBack
 
 class WarningDialog constructor(activity: Activity, message: String) {
 

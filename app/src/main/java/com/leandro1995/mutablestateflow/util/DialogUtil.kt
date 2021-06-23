@@ -1,7 +1,7 @@
 package com.leandro1995.mutablestateflow.util
 
 import android.app.Activity
-import com.leandro1995.mutablestateflow.callback.WarningCallBack
+import com.leandro1995.mutablestateflow.config.callback.WarningCallBack
 import com.leandro1995.mutablestateflow.dialog.WarningDialog
 
 class DialogUtil {
